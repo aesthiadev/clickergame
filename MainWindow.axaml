@@ -206,15 +206,18 @@
 
                     <Separator/>
 
-                    <TextBlock Text="Play Time: --:--:--"
+                    <TextBlock x:Name="PlayTime"
+						       Text="Play Time: --:--:--"
                                FontSize="18"
                                Foreground="White"/>
 
-                    <TextBlock Text="Prestiges: --"
+                    <TextBlock x:Name="Prestiges"
+						       Text="Prestiges: 1"
                                FontSize="18"
                                Foreground="White"/>
 
-                    <TextBlock Text="Total Clicks: --"
+                    <TextBlock x:Name="TotalClicks"
+						       Text="Total Clicks: 0"
                                FontSize="18"
                                Foreground="White"/>
 
