@@ -207,7 +207,7 @@
                     <Separator/>
 
                     <TextBlock x:Name="PlayTime"
-						       Text="Play Time: --:--:--"
+						       Text="Play Time: 00:00:00"
                                FontSize="18"
                                Foreground="White"/>
 

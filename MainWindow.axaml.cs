@@ -2,9 +2,8 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using System;
+using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace MyFirstApp;
 
@@ -50,10 +49,18 @@ public partial class MainWindow : Window
         var totalText = this.FindControl<TextBlock>("TotalClicks");
         var playTimeText = this.FindControl<TextBlock>("PlayTime");
 
-        totalText!.Text = $"Total Clicks: {totalClicks}";
-        scoreText!.Text = $"{clicks}";
-        prestigeProgress!.Value = clicks;
+        if (totalClicks <= 0)
+        {
+            totalText!.Text = "Total Clicks: 0";
+            scoreText!.Text = "0";
+        } 
+        else
+        {
+            totalText!.Text = $"Total Clicks: {totalClicks.ToString("#,#", CultureInfo.InvariantCulture)}";
+            scoreText!.Text = $"{clicks.ToString("#,#", CultureInfo.InvariantCulture)}";
+        }
 
+        prestigeProgress!.Value = clicks;
         playTimeText!.Text = $"Play Time: {formattedTime}";
     }
 
@@ -68,8 +75,8 @@ public partial class MainWindow : Window
         clicks = clicks + clickPerClick * prestige;
         totalClicks = totalClicks + clickPerClick * prestige;
 
-        totalText!.Text = $"Total Clicks: {totalClicks}";
-        clickValue!.Text = $"{clicks}";
+        totalText!.Text = $"Total Clicks: {totalClicks.ToString("#,#", CultureInfo.InvariantCulture)}";
+        clickValue!.Text = $"{clicks.ToString("#,#", CultureInfo.InvariantCulture)}";
         prestigeProgress!.Value = clicks;
     }
     
@@ -85,9 +92,9 @@ public partial class MainWindow : Window
             clicks = clicks - upgradeCost;
             upgradeCost = upgradeCost * 2;
             clickPerClick++;
-            upgradeText!.Text = $"Upgrade Cost: {upgradeCost}";
-            infoText!.Text = $"Clicks per click: {clickPerClick}";
-            clickValue!.Text = $"{clicks}";
+            upgradeText!.Text = $"Upgrade Cost: {upgradeCost.ToString("#,#", CultureInfo.InvariantCulture)}";
+            infoText!.Text = $"Clicks per click: {clickPerClick.ToString("#,#", CultureInfo.InvariantCulture)}";
+            clickValue!.Text = $"{clicks.ToString("#,#", CultureInfo.InvariantCulture)}";
         }
         else { return; }
 
@@ -117,14 +124,14 @@ public partial class MainWindow : Window
         playTime = TimeSpan.Zero;
 
         prestigeProgress!.Value = clicks;
-        prestigeStat!.Text = $"Prestiges: {prestige}";
-        prestigeText!.Text = $"Multiplier: x{prestige}";
-        upgradeText!.Text = $"Upgrade Cost: {upgradeCost}";
-        infoText!.Text = $"Clicks per click: {clickPerClick}";
-        clickValue!.Text = $"{clicks}";
-        clickerCost!.Text = $"Cost: {autoClickersCost}";
-        text!.Text = $"Owned: {autoClickers}";
-        totalText!.Text = $"Total Clicks: {totalClicks}";
+        prestigeStat!.Text = $"Prestiges: {prestige.ToString("#,#", CultureInfo.InvariantCulture)}";
+        prestigeText!.Text = $"Multiplier: x{prestige.ToString("#,#", CultureInfo.InvariantCulture)}";
+        upgradeText!.Text = $"Upgrade Cost: {upgradeCost.ToString("#,#", CultureInfo.InvariantCulture)}";
+        infoText!.Text = $"Clicks per click: {clickPerClick.ToString("#,#", CultureInfo.InvariantCulture)}";
+        clickValue!.Text = $"{clicks.ToString("#,#", CultureInfo.InvariantCulture)}"; ;
+        clickerCost!.Text = $"Cost: {autoClickersCost.ToString("#,#", CultureInfo.InvariantCulture)}";
+        text!.Text = $"Owned: {autoClickers.ToString("#,#", CultureInfo.InvariantCulture)}";
+        totalText!.Text = $"Total Clicks: {totalClicks.ToString("#,#", CultureInfo.InvariantCulture)}";
 
         formattedTime = playTime.ToString(@"hh\:mm\:ss");
 
@@ -143,7 +150,7 @@ public partial class MainWindow : Window
             var clickerCost = this.FindControl<TextBlock>("AutoClickerCostText");
             var text = this.FindControl<TextBlock>("AutoClickerCountText");
 
-            clicksText!.Text = $"{clicks}";
+            clicksText!.Text = $"{clicks.ToString("#,#", CultureInfo.InvariantCulture)}";
             clickerCost!.Text = $"Cost: {autoClickersCost}";
             text!.Text = $"Owned: {autoClickers}";
         }
@@ -170,15 +177,15 @@ public partial class MainWindow : Window
             autoClickersCost = 100;
             prestige++;
 
-            prestigeStat!.Text = $"Prestiges: {prestige}";
+            prestigeStat!.Text = $"Prestiges: {prestige.ToString("#,#", CultureInfo.InvariantCulture)}";
             prestigeProgress!.Value = clicks;
             prestigeProgress!.Maximum = prestigeProgress.Maximum * 2;
-            prestigeText!.Text = $"Multiplier: x{prestige}";
-            upgradeText!.Text = $"Upgrade Cost: {upgradeCost}";
-            infoText!.Text = $"Click per click: {clickPerClick}";
-            clickValue!.Text = $"{clicks}";
-            clickerCost!.Text = $"Cost: {autoClickersCost}";
-            text!.Text = $"Owned: {autoClickers}";
+            prestigeText!.Text = $"Multiplier: x{prestige.ToString("#,#", CultureInfo.InvariantCulture)}";
+            upgradeText!.Text = $"Upgrade Cost: {upgradeCost.ToString("#,#", CultureInfo.InvariantCulture)}";
+            infoText!.Text = $"Click per click: {clickPerClick.ToString("#,#", CultureInfo.InvariantCulture)}";
+            clickValue!.Text = $"{clicks.ToString("#,#", CultureInfo.InvariantCulture)}";
+            clickerCost!.Text = $"Cost: {autoClickersCost.ToString("#,#", CultureInfo.InvariantCulture)}";
+            text!.Text = $"Owned: {autoClickers.ToString("#,#", CultureInfo.InvariantCulture)}";
         }
     }
 
@@ -227,16 +234,16 @@ public partial class MainWindow : Window
             var prestigeStat = this.FindControl<TextBlock>("Prestiges");
             var totalClicksText = this.FindControl<TextBlock>("TotalClicks");
 
-            prestigeStat!.Text = $"Prestiges: {prestige}";
-            totalClicksText!.Text = $"Total Clicks: {totalClicks}";
-            clickValue!.Text = $"{clicks}";
-            infoText!.Text = $"Clicks per click: {clickPerClick}";
-            upgradeText!.Text = $"Upgrade Cost: {upgradeCost}";
-            prestigeText!.Text = $"Multiplier: x{prestige}";
+            prestigeStat!.Text = $"Prestiges: {prestige.ToString("#,#", CultureInfo.InvariantCulture)}";
+            totalClicksText!.Text = $"Total Clicks: {totalClicks.ToString("#,#", CultureInfo.InvariantCulture)}";
+            clickValue!.Text = $"{clicks.ToString("#,#", CultureInfo.InvariantCulture)}";
+            infoText!.Text = $"Clicks per click: {clickPerClick.ToString("#,#", CultureInfo.InvariantCulture)}";
+            upgradeText!.Text = $"Upgrade Cost: {upgradeCost.ToString("#,#", CultureInfo.InvariantCulture)}";
+            prestigeText!.Text = $"Multiplier: x{prestige.ToString("#,#", CultureInfo.InvariantCulture)}";
             prestigeProgress!.Value = clicks;
             prestigeProgress!.Maximum = int.Parse(s8[1]);
-            clickerCost!.Text = $"Cost: {autoClickersCost}";
-            autoClickerCount!.Text = $"Owned: {autoClickers}";
+            clickerCost!.Text = $"Cost: {autoClickersCost.ToString("#,#", CultureInfo.InvariantCulture)}";
+            autoClickerCount!.Text = $"Owned: {autoClickers.ToString("#,#", CultureInfo.InvariantCulture)}";
 
             formattedTime = playTime.ToString(@"hh\:mm\:ss");
             playTimeText!.Text = $"Play Time: {formattedTime}";
